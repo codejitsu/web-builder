@@ -1,35 +1,38 @@
-import type { Page } from "../state/pagesModel";
+import type { Page } from "grapesjs";
 
 type PageSidebarProps = {
   pages: Page[];
-  currentPageId: string;
+  selectedPageId: string | undefined;
   onSelect: (pageId: string) => void;
 };
 
 export function PageSidebar({
   pages,
-  currentPageId,
+  selectedPageId,
   onSelect,
 }: PageSidebarProps) {
   return (
     <nav className="page-sidebar">
       <div className="page-sidebar__title">Pages</div>
       <ul className="page-sidebar__list">
-        {pages.map((page) => (
-          <li key={page.id}>
-            <button
-              type="button"
-              className={
-                page.id === currentPageId
-                  ? "page-sidebar__item page-sidebar__item--active"
-                  : "page-sidebar__item"
-              }
-              onClick={() => onSelect(page.id)}
-            >
-              {page.name}
-            </button>
-          </li>
-        ))}
+        {pages.map((page) => {
+          const id = page.getId();
+          return (
+            <li key={id}>
+              <button
+                type="button"
+                className={
+                  id === selectedPageId
+                    ? "page-sidebar__item page-sidebar__item--active"
+                    : "page-sidebar__item"
+                }
+                onClick={() => onSelect(id)}
+              >
+                {page.getName()}
+              </button>
+            </li>
+          );
+        })}
       </ul>
     </nav>
   );

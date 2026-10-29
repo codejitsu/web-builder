@@ -1,8 +1,7 @@
 import { useState } from "react";
-import type { PageData } from "../state/pagesModel";
 
 type ModelViewerProps = {
-  data: PageData;
+  data: unknown;
   onClose: () => void;
 };
 
